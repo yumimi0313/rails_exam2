@@ -51,16 +51,20 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-      redirect_to posts_path, notice: "削除しました" }
+      redirect_to posts_path, notice: "削除しました"
   end
+
+  # def image
+  #   @posts = Post.where(user_id: current_user.id).where.not(image: nil)
+  # end
 
   private
 
-    def set_post
-      @post = Post.find(params[:id])
-    end
+  def set_post
+    @post = Post.find(params[:id])
+  end
 
-    def post_params
-      params.require(:post).permit(:content, :image, :image_cache)
-    end
+  def post_params
+    params.require(:post).permit(:content, :image, :image_cache)
+  end
 end
