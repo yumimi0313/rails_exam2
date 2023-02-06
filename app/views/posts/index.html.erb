@@ -1,7 +1,5 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Posts</h1>
-
 <table>
   <thead>
     <tr>
@@ -19,9 +17,9 @@
         <td><%= post.image %></td>
         <td><%= post.user_id %></td>
 
-        <td><%= link_to '詳細を確認する', post_path(post) %></td>
-        <td><%= link_to '編集する', edit_post_path(post) %></td>
-        <td><%= link_to '削除する', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to '詳細を確認', post_path(post), class: "btn btn-success" %></td>
+        <td><%= link_to '編集', edit_post_path(post), class: "btn btn-warning" %></td>
+        <td><%= link_to '削除', post, class: "btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -29,4 +27,4 @@
 
 <br>
 
-<%= link_to '新しく投稿する', new_post_path %>
+<%= link_to '新しく投稿', new_post_path, class: "btn btn-info" %>

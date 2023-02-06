@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RailsExam1</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header>
+      <ul class="header">
+      <li><%= link_to 'HOME', posts_path %></li>
+      </ul>
+    </header>
+
+    <%= yield %>
+    
+    <footer>
+      <p>作成：rails_exam2_友達つながりアプリ</p>
+    </footer>
+  </body>
+
+</html>
