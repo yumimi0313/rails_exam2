@@ -1,7 +1,14 @@
-<h1>確認画面</h1>
-<%= form_with(model: @post, url:posts_path, local:true) do |form| %>
+  <h1>確認画面</h1>
+<%= form_with(model: @post, url: posts_path, local: true) do |form| %>
   <%= form.hidden_field :content%>
+  <%# 確認画面でアップロードした画像を表示されるための記述 %> 
   <%= image_tag(@post.image.url) if @post.image && @post.image.url %>
   <%= form.hidden_field :iamge_cache %>
   <%= form.submit "投稿する"%>
+<% end %>
+
+<%= form_with(model: @post, url: new_post_path, local: true, method: "get") do |form|%>
+  <%= form.hidden_field :image_cache %>
+  <%# 戻るボタンで実行されたcreateアクションと示すためにname属性をつけパラメーターを分ける、コントローラcreateアクション側で処理を分ける %>
+  <%= form.submit "戻る" , name: 'back' %>
 <% end %>

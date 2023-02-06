@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :set_post, only:[:show, :edit, :update, :destroy]
 
   def index
     @posts = Post.all
@@ -16,8 +16,8 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     #postsはモデルUserで定義したアソシエーション、アソシエーション状態のインスタンスを作るときはbuild、ログイン中のユーザのpostをbuild(new)する
     @post = current_user.posts.build(post_params) 
-    #バリデーションが発生するタイミング、値が保存される時、よって手動でバリデーションに失敗した場合は投稿画面に戻す
-    render :new if post.invalid? 
+    #バリデーションが発生するタイミングは値が保存される時、確認画面時にバリデーションされていてないといけない、手動 でバリデーションに失敗した場合は投稿画面に戻す
+    render :new if @post.invalid? 
   end
 
   def edit
@@ -25,36 +25,37 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
+    #postsはモデルUserで定義したアソシエーション、アソシエーション状態のインスタンスを作るときはbuild、ログイン中のユーザのpostをbuild(new)する
     @post = current_user.posts.build(post_params)
 
-    respond_to do |format|
+    if params[:back]
+        render :new
+    else
       if @post.save
-        format.html { redirect_to post_url(@post), notice: "Post was successfully created." }
+        #newページへ、リダイレクト
+      redirect_to new_post_path, notice: "保存しました" 
       else
-        format.html { render :new, status: :unprocessable_entity }
+      render :new
       end
     end
   end
 
   def update
-    respond_to do |format|
-      if @post.update(post_params)
-        format.html { redirect_to post_url(@post), notice: "Post was successfully updated." }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-      end
+    if @post.update(post_params)
+      #indexページへ
+      redirect_to posts_path, notice: "保存しました"
+    else
+      render :edit
     end
   end
 
   def destroy
     @post.destroy
-
-    respond_to do |format|
-      format.html { redirect_to posts_path, notice: "Post was successfully destroyed." }
-    end
+      redirect_to posts_path, notice: "削除しました" }
   end
 
   private
+
     def set_post
       @post = Post.find(params[:id])
     end
