@@ -18,8 +18,11 @@
         <td><%= post.user.name %></td>
 
         <td><%= link_to '詳細を確認', post_path(post), class: "btn btn-success" %></td>
+        <% if current_user.id == post.user_id %>      
         <td><%= link_to '編集', edit_post_path(post), class: "btn btn-warning" %></td>
         <td><%= link_to '削除', post, class: "btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% else %>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

@@ -9,19 +9,35 @@
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
+  <header>
+  <ul class="header">
+  <li><%= link_to 'HOME', posts_path %></li>
+
+  <% if logged_in? %>
+  <li><%= link_to "Profile", user_path(current_user.id) %></li>
+  <li><%= link_to "Logout", session_path(current_user.id), method: :delete %></li>
+  <% else %>
+  <li><%= link_to "Sign up", new_user_path %></li>
+  <li><%= link_to "Login", new_session_path %></li>
+  <% end %>
+
+  </ul>
+  </header>
 
   <body>
-    <header>
-      <ul class="header">
-      <li><%= link_to 'HOME', posts_path %></li>
-      </ul>
-    </header>
+    <% flash.each do |key, value| %>
+      <%= content_tag(:div, value, class: "#{key}") %>
+    <% end %>
+
+
 
     <%= yield %>
     
-    <footer>
-      <p>作成：rails_exam2_友達つながりアプリ</p>
-    </footer>
+
   </body>
+
+  <footer>
+  <p>作成：rails_exam2_友達つながりアプリ</p>
+  </footer>
 
 </html>

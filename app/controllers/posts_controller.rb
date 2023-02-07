@@ -21,6 +21,12 @@ class PostsController < ApplicationController
   end
 
   def edit
+    # current_userと投稿者が一致してなければどこかにredirectさせる
+    if current_user.id != @post.user_id
+      redirect_to posts_path
+    else
+      render :edit
+    end
   end
 
   def create
@@ -50,13 +56,13 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post.destroy
+    if current_user.id = @post.user_id
+      @post.destroy
       redirect_to posts_path, notice: "削除しました"
+    else
+      render :posts_path
+    end
   end
-
-  # def image
-  #   @posts = Post.where(user_id: current_user.id).where.not(image: nil)
-  # end
 
   private
 
