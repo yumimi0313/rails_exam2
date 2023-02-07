@@ -15,7 +15,7 @@
       <tr>
         <td><%= post.content %></td>
         <td><%= post.image %></td>
-        <td><%= post.user_id %></td>
+        <td><%= post.user.name %></td>
 
         <td><%= link_to '詳細を確認', post_path(post), class: "btn btn-success" %></td>
         <td><%= link_to '編集', edit_post_path(post), class: "btn btn-warning" %></td>

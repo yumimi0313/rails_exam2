@@ -3,7 +3,7 @@
   <%= form.hidden_field :content%>
   <%# 確認画面でアップロードした画像を表示されるための記述 %> 
   <%= image_tag(@post.image.url) if @post.image && @post.image.url %>
-  <%= form.hidden_field :iamge_cache %>
+  <%= form.hidden_field :image_cache %>
   <%= form.submit "投稿する"%>
 <% end %>
 
